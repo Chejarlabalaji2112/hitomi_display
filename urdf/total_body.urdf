@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<robot name="hitomi">
+    <link name="chassis">
+        <inertial>
+        	<mass value="1.0"/>
+            <inertia ixx ="0.02" ixy="0.0" ixz="0.0" iyy="0.04" iyz="0.0" izz="0.05" />
+       </inertial>
+        <visual>
+            <origin xyz= "0 0 0.1" />
+            <geometry>
+                <box size="0.7 0.4 0.2" />
+            </geometry>
+            <material name="blue">
+               <color rgba="0 0 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.8 0.4 0.2" />                   
+            </geometry>
+        </collision>
+    </link>
+    <!-- wheels-->
+    
+    <link name = "fl_wheel">
+        <inertial>
+            <mass value="0.1" />
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5708 0 0 "/>
+            <geometry>
+                <cylinder radius="0.05" length="0.02" />
+            </geometry>
+            <material name="black">
+               <color rgba="0 0 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.05" length="0.02" />
+            </geometry>
+        </collision>
+    </link> 
+    
+    <link name = "fr_wheel">
+        <inertial>
+            <mass value="0.1" />
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5708 0 0 "/>
+            <geometry>
+                <cylinder radius="0.05" length="0.02" />
+            </geometry>
+            <material name="black">
+               <color rgba="0 0 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.05" length="0.02" />
+            </geometry>
+        </collision>
+    </link> 
+    <!--"r_wheel"-->
+    
+    <link name = "rl_wheel">
+        <inertial>
+            <mass value="0.1" />
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5708 0 0 "/>
+            <geometry>
+                <cylinder radius="0.05" length="0.02" />
+            </geometry>
+            <material name="black">
+               <color rgba="0 0 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.05" length="0.02" />
+            </geometry>
+        </collision>
+    </link> 
+    
+    <link name = "rr_wheel">
+        <inertial>
+            <mass value="0.1" />
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5708 0 0 "/>
+            <geometry>
+                <cylinder radius="0.05" length="0.02" />
+            </geometry>
+            <material name="black">
+               <color rgba="0 0 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.05" length="0.02" />
+            </geometry>
+        </collision>
+    </link> 
+           
+   <!-- wheel joints-->
+   
+    <joint name="fl_joint" type="continuous">
+        <parent link="chassis" />
+        <child link="fl_wheel" />
+        <origin xyz="0.25 0.22 0"/>
+        <axis xyz="0 1 0" />
+    </joint>
+    
+    <joint name="fr_joint" type="continuous">
+        <parent link="chassis" />
+        <child link="fr_wheel" />
+        <origin xyz="0.25 -0.22 0"/>
+        <axis xyz="0 1 0" />
+    </joint>
+    
+    <joint name="rl_joint" type="continuous">
+        <parent link="chassis" />
+        <child link="rl_wheel" />
+        <origin xyz="-0.25 0.22 0"/>
+        <axis xyz="0 1 0" />
+    </joint>
+    
+    <joint name="rr_joint" type="continuous">
+        <parent link="chassis" />
+        <child link="rr_wheel" />
+        <origin xyz="-0.25 -0.22 0"/>
+        <axis xyz="0 1 0" />
+    </joint>
+
+<gazebo>
+   <plugin name="gz::sim::systems::DiffDrive" filename="libgz-sim8-diff-drive-system.so">
+    <ros>
+      <remapping>cmd_vel:=/cmd_vel</remapping>
+    </ros>
+
+    <!-- Joints -->
+    <left_joint>fl_joint</left_joint>
+    <right_joint>fr_joint</right_joint>
+
+    <!-- Wheel parameters -->
+    <wheel_separation>0.4</wheel_separation>
+    <wheel_radius>0.05</wheel_radius>  <!-- 0.1 diameter / 2 -->
+
+    <!-- Frames -->
+    <odom_frame>odom</odom_frame>
+    <robot_base_frame>chassis</robot_base_frame>
+
+    <!-- Odometry settings -->
+    <publish_odom>true</publish_odom>
+    <publish_tf>true</publish_tf>
+
+    <!-- ROS topics -->
+    <topic>/cmd_vel</topic>
+    <odom_topic>odom</odom_topic>
+  </plugin>
+</gazebo>
+
+ 
+</robot>

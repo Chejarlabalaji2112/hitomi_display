@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+
+<robot name="test_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:property name="PI" value="3.14159265"/>
+    <xacro:property name="body_len" value="0.5"/>
+    <xacro:property name="body_wid" value="0.3"/>
+    <xacro:property name="body_hei" value="0.1"/>
+    <xacro:property name="body_den" value="7850.0"/>
+    <xacro:property name="body_mas" value="${body_den * body_len * body_wid * body_hei}"/>
+    <xacro:property name="body_ine_x" value="${1.0/12.0 * body_mas *(body_hei + body_wid * body_wid)}"/>
+    <xacro:property name="body_ine_y" value="${1.0/12.0 * body_mas * (body_len*body_len + body_hei*body_hei)}"/>
+    <xacro:property name="body_ine_z" value="${1.0/12.0 * body_mas * (body_len*body_len + body_wid*body_wid)}"/>
+    
+    <xacro:property name="wheel_rad" value="0.1"/>
+    <xacro:property name="wheel_wid" value="0.05"/>
+    <xacro:property name="wheel_sep" value= "${body_wid + wheel_wid}"/>
+    <xacro:property name="wheel_offset" value="${body_len/2 - wheel_rad}" />
+    <xacro:property name="wheel_den" value="900"/> <!-- Ruber -->
+    <xacro:property name="wheel_mas" value="${wheel_den * PI * wheel_rad * wheel_rad * wheel_wid}"/>
+    <xacro:property name="wheel_ine_x" value="${1.0/12.0 * wheel_mas * (3*wheel_rad*wheel_rad + wheel_wid*wheel_wid)}"/>
+    <xacro:property name="wheel_ine_y" value="${1.0/12.0 * wheel_mas * (3*wheel_rad*wheel_rad + wheel_wid*wheel_wid)}"/>
+    <xacro:property name="wheel_ine_z" value="${1.0/2.0 * wheel_mas * wheel_rad * wheel_rad}"/>
+
+    <xacro:property name="max_linear_acceleration" value="10"/>
+
+    <link name="body">
+        <visual>
+            <origin xyz="0 0 0" xpy="0 0 0"/>
+            <geometry>
+                <box  size="${body_len} ${body_wid} ${body_hei}"/>
+            </geometry>
+            <material name="body_material">
+                <color rgba="0.25 0.25 0.25 1.0"/> 
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" xpy="0 0 0"/>
+            <geometry>
+                <box  size="${body_len} ${body_wid} ${body_hei}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="10"/>
+            <inertia ixx="${body_ine_x}" ixy ="0" ixz="0" iyy="${body_ine_y}" iyz="0" izz="${body_ine_z}"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </inertial>
+    </link>
+    <xacro:include filename="$(find hitomi)/urdf/camera.urdf.xacro"/>
+    <link name="left_drive_wheel">
+        <visual>
+            <origin xyz="0 0 0" rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder radius="${wheel_rad}" length="${wheel_wid}"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder radius="${wheel_rad}" length="${wheel_wid}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="2"/>
+            <inertia ixx="${wheel_ine_x}" ixy="0.0" ixz="0.0" iyy="${wheel_ine_y}" iyz="0" izz="${wheel_ine_z}"/>
+            <origin xyz="0.0 0.0 0.0" rpy="1.570795 0.0 0.0"/>
+        </inertial>
+    </link>
+
+    <link name="right_drive_wheel">
+        <visual>
+            <origin xyz="0 0 0" rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder radius="${wheel_rad}" length="${wheel_wid}"/>
+            </geometry>
+            <material name="wheel_material">
+                <color rgba="0.0 0.0 0.0 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder radius="${wheel_rad}" length="${wheel_wid}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="2"/>
+            <inertia ixx="${wheel_ine_x}" ixy="0.0" ixz="0.0" iyy="${wheel_ine_y}" iyz="0" izz="${wheel_ine_z}"/>
+            <origin xyz="0.0 0.0 0.0" rpy="1.570795 0.0 0.0"/>
+        </inertial>
+    </link>
+
+    <link name="left_dummy_wheel">
+        <visual>
+            <origin xyz="0 0 0" rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder radius="${wheel_rad}" length="${wheel_wid}"/>
+            </geometry>
+            <material name="wheel_material">
+                <color rgba="0.0 0.0 0.0 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder radius="${wheel_rad}" length="${wheel_wid}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="2"/>
+            <inertia ixx="${wheel_ine_x}" ixy="0.0" ixz="0.0" iyy="${wheel_ine_y}" iyz="0" izz="${wheel_ine_z}"/>
+            <origin xyz="0.0 0.0 0.0" rpy="1.570795 0.0 0.0"/>
+        </inertial>
+    </link>
+
+    <link name="right_dummy_wheel">
+        <visual>
+            <origin xyz="0 0 0" rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder radius="${wheel_rad}" length="${wheel_wid}"/>
+            </geometry>
+            <material name="wheel_material">
+                <color rgba="0.0 0.0 0.0 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder radius="${wheel_rad}" length="${wheel_wid}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="2"/>
+            <inertia ixx="${wheel_ine_x}" ixy="0.0" ixz="0.0" iyy="${wheel_ine_y}" iyz="0" izz="${wheel_ine_z}"/>
+            <origin xyz="0.0 0.0 0.0" rpy="1.570795 0.0 0.0"/>
+        </inertial>
+    </link>
+    <!--Joints-->
+
+    <joint name="ldrive_wheel_joint" type="continuous">
+        <origin xyz="-${wheel_offset} ${wheel_sep/2} -${wheel_rad/2}"/>
+        <parent link="body"/>
+        <child link="left_drive_wheel"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" velocity="10.0"/>
+        <dynamics damping="0.1" friction="0.1"/>       
+    </joint>
+
+    <joint name="rdrive_wheel_joint" type="continuous">
+        <origin xyz="-${wheel_offset} ${-wheel_sep/2} ${-wheel_rad/2}"/>
+        <parent link="body"/>
+        <child link="right_drive_wheel"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" velocity="10.0"/>
+        <dynamics damping="0.1" friction="0.1"/>       
+    </joint>
+
+    <joint name="ldummy_wheel_joint" type="continuous">
+        <origin xyz="${wheel_offset} ${wheel_sep/2} ${-wheel_rad/2}"/>
+        <parent link="body"/>
+        <child link="left_dummy_wheel"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" velocity="10.0"/>
+        <dynamics damping="0.1" friction="0.1"/>       
+    </joint>
+
+    <joint name="rdummy_wheel_joint" type="continuous">
+        <origin xyz="${wheel_offset} ${-wheel_sep/2} ${-wheel_rad/2}"/>
+        <parent link="body"/>
+        <child link="right_dummy_wheel"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" velocity="10.0"/>
+        <dynamics damping="0.1" friction="0.1"/>       
+    </joint>
+
+ <!-- Gazebo Parameters -->
+ <gazebo reference="body">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+</gazebo>
+
+ <gazebo reference="left_drive_wheel">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+</gazebo>
+
+<gazebo reference="right_drive_wheel">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+</gazebo>
+
+<gazebo reference="left_dummy_wheel">
+    <mu1>0.000001</mu1>
+    <mu2>0.000001</mu2>
+</gazebo>
+
+<gazebo reference="right_dummy_wheel">
+    <mu1>0.000001</mu1>
+    <mu2>0.000001</mu2>
+</gazebo>
+
+<xacro:camera/>
+<gazebo>
+    <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+        <right_joint>rdrive_wheel_joint</right_joint>
+        <left_joint>ldrive_wheel_joint</left_joint>       
+        <wheel_seperation>${wheel_sep}</wheel_seperation>
+        <wheel_radius>${wheel_rad}</wheel_radius>
+        <max_linear_acceleration>${max_linear_acceleration}</max_linear_acceleration>
+        <odom_publish_frequency>100</odom_publish_frequency>
+        <topic>cmd_vel</topic>
+        <odom_topic>odom</odom_topic>
+    </plugin>
+</gazebo>
+</robot>
