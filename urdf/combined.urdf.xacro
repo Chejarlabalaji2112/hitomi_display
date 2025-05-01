@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot name="hitomi" xmlns:xacro="https://ros.org/wiki/xacro">
+    <xacro:include filename="$(find hitomi)/urdf/chassis.urdf.xacro"/>
+    <xacro:include filename="$(find hitomi)/urdf/legs.urdf.xacro"/>
+    <xacro:include filename="$(find hitomi)/urdf/wheels.urdf.xacro"/>
+
+    <xacro:chassis/>
+    <xacro:leg suffix="fl" parent="chassis_link" xyz="1.5 -0.9 1.5" rpy="0 0.523 0"/>
+    <xacro:leg suffix="fr" parent="chassis_link" xyz="1.5 0.9 1.5" rpy="0 0.523 0"/>
+    <xacro:leg suffix="rl" parent="chassis_link" xyz="-1.5 -0.9 1.5" rpy="0 -0.523 0"/>
+    <xacro:leg suffix="rr" parent="chassis_link" xyz="-1.5 0.9 1.5" rpy="0 -0.523 0"/>
+    <xacro:wheel suffix="fl" parent="leg_fl" xyz="0.8 -0.2 -0.5" />
+    <xacro:wheel suffix="fr" parent="leg_fr" xyz="0.8 0.2 -0.5" />
+    <xacro:wheel suffix="rl" parent="leg_rl" xyz="-0.8 -0.2 -0.5" />
+    <xacro:wheel suffix="rr" parent="leg_rr" xyz="-0.8 0.2 -0.5" />
+</robot>
