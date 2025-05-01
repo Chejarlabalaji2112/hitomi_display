@@ -28,7 +28,8 @@
         <visual>
             <origin xyz="0 0 0" xpy="0 0 0"/>
             <geometry>
-                <box  size="${body_len} ${body_wid} ${body_hei}"/>
+                <!--box  size="${body_len} ${body_wid} ${body_hei}"/-->
+                <mesh filename="package://hitomi/meshes/body.dae"/>
             </geometry>
             <material name="body_material">
                 <color rgba="0.25 0.25 0.25 1.0"/> 
@@ -46,7 +47,7 @@
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </inertial>
     </link>
-    <xacro:include filename="$(find hitomi)/urdf/camera.urdf.xacro"/>
+
     <link name="left_drive_wheel">
         <visual>
             <origin xyz="0 0 0" rpy="1.570795 0 0"/>
@@ -135,6 +136,26 @@
             <origin xyz="0.0 0.0 0.0" rpy="1.570795 0.0 0.0"/>
         </inertial>
     </link>
+    <link name="camera_link">
+        <visual>
+            <geometry>
+                <box size="0.2 0.2 0.2"/>
+            </geometry>
+            <material name="black">
+                <color rgba="0 0 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.2 0.2 0.2"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="10"/>
+            <inertia ixx="0.005" ixy="0" ixz="0" iyy="0.005" iyz="0" izz="0.005" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </inertial>
+    </link>
     <!--Joints-->
 
     <joint name="ldrive_wheel_joint" type="continuous">
@@ -172,6 +193,13 @@
         <limit effort="100" velocity="10.0"/>
         <dynamics damping="0.1" friction="0.1"/>       
     </joint>
+    
+    <joint name="camera_joint" type="fixed">
+        <parent link="body"/>
+        <child link="camera_link"/>
+        <origin xyz="0.1035 -0.0000 0.1630"/>
+        <axis xyz="0 0 1" />
+    </joint>
 
  <!-- Gazebo Parameters -->
  <gazebo reference="body">
@@ -198,8 +226,35 @@
     <mu1>0.000001</mu1>
     <mu2>0.000001</mu2>
 </gazebo>
+<gazebo>
+    <plugin filename="libgz-sim-sensors-system.so"
+      name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+</gazebo>
+<gazebo reference="camera_link">
+    <sensor type="camera" name="camera_front">
+        <!--gz_frame_id>camera_link</gz_frame_id-->
+        <pose>-0.005 0 0 0 0 0</pose>
+        <always_on>true</always_on>
+        <update_rate>30</update_rate>
+        <visualize>true</visualize>
+        <topic>camera</topic>
+        <camera>
+            <camera_info_topic>/camera_info</camera_info_topic>
+            <horizontal_fov>1.5</horizontal_fov>
+            <image>
+                <width>640</width>
+                <height>480</height>
+            </image>
+            <clip>
+                <near>0.01</near>
+                <far>300</far>
+            </clip>
+        </camera>
+    </sensor>
+</gazebo>
 
-<xacro:camera/>
 <gazebo>
     <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
         <right_joint>rdrive_wheel_joint</right_joint>

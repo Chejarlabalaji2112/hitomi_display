@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<robot name="hitomi" xmlns:xacro="https://ros.org/wiki/xacro">
+    <xacro:macro name="chassis">
+        <link name="chassis_link">
+            <visual>
+                <geometry>
+                    <mesh filename="package://hitomi/meshes/body.dae"/>
+                </geometry>
+                <material name="true_turquoise">
+                    <color rgba="0.251 0.878 0.816 1.0"/>
+                </material>
+            </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://hitomi/meshes/body.stl"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="3.0" />
+                <inertia 
+                  ixx="0.9" ixy="0.0" ixz="0.0"
+                  iyy="0.9" iyz="0.0"
+                  izz="0.01"/>
+              </inertial>
+        </link>
+    </xacro:macro>
+</robot>

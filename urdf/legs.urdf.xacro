@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="https://ros.org/wiki/xacro">
+    <xacro:macro name="leg" params="suffix parent xyz rpy">
+        <link name="leg_${suffix}">
+            <visual>
+                <origin xyz="0 0 0" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://hitomi/meshes/leg.dae"/>
+                </geometry>
+                <material name="white">
+                    <color rgba="1 1 1 1"/>
+                </material>
+            </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://hitomi/meshes/leg.stl"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="0.5" />
+                <inertia ixx="0.005" ixy="0" ixz="0" iyy="0.005" iyz="0" izz="0.005" />
+            </inertial>
+        </link>
+
+        <joint name="leg_${suffix}_joint" type="fixed">
+            <!-- need to change the type from fixed to something so that the suspension will be simulated.-->
+             <parent link="${parent}"/>
+             <child link="leg_${suffix}"/>
+             <origin xyz="${xyz}" rpy="0 0 0"/>
+        </joint>
+    </xacro:macro>
+</robot>
