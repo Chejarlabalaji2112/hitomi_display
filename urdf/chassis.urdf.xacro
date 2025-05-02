@@ -3,7 +3,7 @@
     <xacro:macro name="chassis">
         <link name="chassis_link">
             <visual>
-                <origin xyz="0 0 0.77" rpy="0 0 0"/>
+                <origin xyz="0 0 0.07" rpy="0 0 0"/>
                 <geometry>
                     <mesh filename="package://hitomi/meshes/body.dae"/>
                 </geometry>
@@ -12,7 +12,7 @@
                 </material>
             </visual>
             <collision>
-                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <origin xyz="0 0 0.07" rpy="0 0 0"/>
                 <geometry>
                     <mesh filename="package://hitomi/meshes/body.stl"/>
                 </geometry>
@@ -25,22 +25,5 @@
                   izz="0.01"/>
               </inertial>
         </link>
-
-        <link name="display_link">
-            <visual>
-                <origin xyz="0.7 0 2.5" rpy="0 0 0"/>
-                <geometry>
-                    <box size="0.1 0.8 0.3"/>
-                </geometry>
-                <material name="white">
-                    <color rgba="1 1 1 1"/>
-                </material>
-            </visual>
-        </link>
-
-        <joint name="display_joint" type="fixed">
-            <parent link="chassis_link"/>
-            <child link="display_link"/>
-        </joint>
     </xacro:macro>
 </robot>

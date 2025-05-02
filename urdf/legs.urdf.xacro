@@ -12,6 +12,7 @@
                 </material>
             </visual>
             <collision>
+                <origin xyz="0 0 0" rpy="${rpy}"/>
                 <geometry>
                     <mesh filename="package://hitomi/meshes/leg.stl"/>
                 </geometry>
