@@ -4,9 +4,44 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <robot name="hitomi">
+  <gazebo>
+    <plugin filename="libgz-sim-sensors-system.so" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+      <left_joint>wheel_fl_joint</left_joint>
+      <left_joint>wheel_rl_joint</left_joint>
+      <right_joint>wheel_fr_joint</right_joint>
+      <right_joint>wheel_rr_joint</right_joint>
+      <wheel_separation>0.220334</wheel_separation>
+      <wheel_radius>0.02</wheel_radius>
+      <max_linear_acceleration>10</max_linear_acceleration>
+      <odom_publish_frequency>100</odom_publish_frequency>
+      <topic>cmd_vel</topic>
+      <odom_topic>odom</odom_topic>
+    </plugin>
+  </gazebo>
+  <gazebo reference="wheel_fl">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+  </gazebo>
+  <gazebo reference="wheel_fr">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+  </gazebo>
+  <gazebo reference="wheel_rl">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+  </gazebo>
+  <gazebo reference="wheel_rr">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+  </gazebo>
   <link name="chassis_link">
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.07"/>
       <geometry>
         <mesh filename="package://hitomi/meshes/body.dae"/>
       </geometry>
@@ -15,7 +50,7 @@
       </material>
     </visual>
     <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.07"/>
       <geometry>
         <mesh filename="package://hitomi/meshes/body.stl"/>
       </geometry>
@@ -25,21 +60,6 @@
       <inertia ixx="0.9" ixy="0.0" ixz="0.0" iyy="0.9" iyz="0.0" izz="0.01"/>
     </inertial>
   </link>
-  <link name="display_link">
-    <visual>
-      <origin rpy="0 0 0" xyz="0.7 0 2.5"/>
-      <geometry>
-        <box size="0.1 0.8 0.3"/>
-      </geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
-    </visual>
-  </link>
-  <joint name="display_joint" type="fixed">
-    <parent link="chassis_link"/>
-    <child link="display_link"/>
-  </joint>
   <link name="leg_fl">
     <visual>
       <origin rpy="0 0.523 0" xyz="0 0 0"/>
@@ -51,6 +71,7 @@
       </material>
     </visual>
     <collision>
+      <origin rpy="0 0.523 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://hitomi/meshes/leg.stl"/>
       </geometry>
@@ -64,7 +85,7 @@
     <!-- need to change the type from fixed to something so that the suspension will be simulated.-->
     <parent link="chassis_link"/>
     <child link="leg_fl"/>
-    <origin rpy="0 0 0" xyz="0.15 -0.9 0.15"/>
+    <origin rpy="0 0 0" xyz="0.15 0.09 0.03"/>
   </joint>
   <link name="leg_fr">
     <visual>
@@ -77,6 +98,7 @@
       </material>
     </visual>
     <collision>
+      <origin rpy="0 0.523 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://hitomi/meshes/leg.stl"/>
       </geometry>
@@ -90,7 +112,7 @@
     <!-- need to change the type from fixed to something so that the suspension will be simulated.-->
     <parent link="chassis_link"/>
     <child link="leg_fr"/>
-    <origin rpy="0 0 0" xyz="1.5 0.9 1.5"/>
+    <origin rpy="0 0 0" xyz="0.15 -0.09 0.03"/>
   </joint>
   <link name="leg_rl">
     <visual>
@@ -103,6 +125,7 @@
       </material>
     </visual>
     <collision>
+      <origin rpy="0 -0.523 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://hitomi/meshes/leg.stl"/>
       </geometry>
@@ -116,7 +139,7 @@
     <!-- need to change the type from fixed to something so that the suspension will be simulated.-->
     <parent link="chassis_link"/>
     <child link="leg_rl"/>
-    <origin rpy="0 0 0" xyz="-1.5 -0.9 1.5"/>
+    <origin rpy="0 0 0" xyz="-0.15 0.09 0.03"/>
   </joint>
   <link name="leg_rr">
     <visual>
@@ -129,6 +152,7 @@
       </material>
     </visual>
     <collision>
+      <origin rpy="0 -0.523 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://hitomi/meshes/leg.stl"/>
       </geometry>
@@ -142,7 +166,7 @@
     <!-- need to change the type from fixed to something so that the suspension will be simulated.-->
     <parent link="chassis_link"/>
     <child link="leg_rr"/>
-    <origin rpy="0 0 0" xyz="-1.5 0.9 1.5"/>
+    <origin rpy="0 0 0" xyz="-0.15 -0.09 0.03"/>
   </joint>
   <link name="wheel_fl">
     <visual>
@@ -152,6 +176,7 @@
       </geometry>
     </visual>
     <collision>
+      <origin rpy="1.570795 0 0" xyz="0 0 0"/>
       <geometry>
         <cylinder length="0.02" radius="0.02"/>
       </geometry>
@@ -164,8 +189,8 @@
   <joint name="wheel_fl_joint" type="continuous">
     <parent link="leg_fl"/>
     <child link="wheel_fl"/>
-    <origin xyz="0.08 -0.02 -0.05"/>
-    <axis xyz="0 0 1"/>
+    <origin xyz="0.08 0.02 -0.05"/>
+    <axis xyz="0 1 0 "/>
   </joint>
   <link name="wheel_fr">
     <visual>
@@ -175,6 +200,7 @@
       </geometry>
     </visual>
     <collision>
+      <origin rpy="1.570795 0 0" xyz="0 0 0"/>
       <geometry>
         <cylinder length="0.02" radius="0.02"/>
       </geometry>
@@ -187,8 +213,8 @@
   <joint name="wheel_fr_joint" type="continuous">
     <parent link="leg_fr"/>
     <child link="wheel_fr"/>
-    <origin xyz="0.8 0.2 -0.5"/>
-    <axis xyz="0 0 1"/>
+    <origin xyz="0.08 -0.02 -0.05"/>
+    <axis xyz="0 1 0 "/>
   </joint>
   <link name="wheel_rl">
     <visual>
@@ -198,6 +224,7 @@
       </geometry>
     </visual>
     <collision>
+      <origin rpy="1.570795 0 0" xyz="0 0 0"/>
       <geometry>
         <cylinder length="0.02" radius="0.02"/>
       </geometry>
@@ -210,8 +237,8 @@
   <joint name="wheel_rl_joint" type="continuous">
     <parent link="leg_rl"/>
     <child link="wheel_rl"/>
-    <origin xyz="-0.8 -0.2 -0.5"/>
-    <axis xyz="0 0 1"/>
+    <origin xyz="-0.08 0.02 -0.05"/>
+    <axis xyz="0 1 0 "/>
   </joint>
   <link name="wheel_rr">
     <visual>
@@ -221,6 +248,7 @@
       </geometry>
     </visual>
     <collision>
+      <origin rpy="1.570795 0 0" xyz="0 0 0"/>
       <geometry>
         <cylinder length="0.02" radius="0.02"/>
       </geometry>
@@ -233,7 +261,77 @@
   <joint name="wheel_rr_joint" type="continuous">
     <parent link="leg_rr"/>
     <child link="wheel_rr"/>
-    <origin xyz="-0.8 0.2 -0.5"/>
-    <axis xyz="0 0 1"/>
+    <origin xyz="-0.08 -0.02 -0.05"/>
+    <axis xyz="0 1 0 "/>
   </joint>
+  <link name="display_link">
+    <visual>
+      <!--origin xyz="0.07 0 0.14" rpy="0 0 0"/-->
+      <origin rpy="0 0 0" xyz="0.07 0 0.11"/>
+      <geometry>
+        <box size="0.01 0.08 0.03"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <!--origin xyz="0.07 0 0.19" rpy="0 0 0"/-->
+      <origin rpy="0 0 0" xyz="0.07 0 0.11"/>
+      <geometry>
+        <box size="0.01 0.08 0.03"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="display_joint" type="fixed">
+    <parent link="chassis_link"/>
+    <child link="display_link"/>
+  </joint>
+  <link name="camera_link">
+    <visual>
+      <origin rpy="0 1.570795 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.01" radius="0.01"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.01" radius="0.01"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.01"/>
+      <inertia ixx="0.005" ixy="0" ixz="0" iyy="0.005" iyz="0" izz="0.005"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
+  <joint name="camera_joint" type="fixed">
+    <parent link="chassis_link"/>
+    <child link="camera_link"/>
+    <origin xyz="0.128 0 0.08"/>
+  </joint>
+  <gazebo reference="camera_link">
+    <sensor name="camera_fr" type="camera">
+      <pose>-0.005 0 0 0 0 0</pose>
+      <always_on>true</always_on>
+      <update_rate>30</update_rate>
+      <visualize>true</visualize>
+      <topic>camera/image_raw</topic>
+      <camera>
+        <camera_info_topic>/camera_info</camera_info_topic>
+        <horizontal_fov>1.5</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+        </image>
+        <clip>
+          <near>0.01</near>
+          <far>300</far>
+        </clip>
+      </camera>
+    </sensor>
+  </gazebo>
 </robot>

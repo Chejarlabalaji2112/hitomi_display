@@ -6,4 +6,34 @@
       <render_engine>ogre2</render_engine>
     </plugin>
   </gazebo>
+
+  <gazebo>
+    <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+        <left_joint>wheel_fl_joint</left_joint>
+        <right_joint>wheel_fr_joint</right_joint>     
+        <wheel_separation>0.220334</wheel_separation>
+        <wheel_radius>0.02</wheel_radius>
+        <max_linear_acceleration>5i</max_linear_acceleration>
+        <odom_publish_frequency>100</odom_publish_frequency>
+        <topic>cmd_vel</topic>
+        <odom_topic>odom</odom_topic>
+    </plugin>
+</gazebo>
+<gazebo reference="wheel_fl">
+  <mu1>1.0</mu1>
+  <mu2>1.0</mu2>
+</gazebo>
+<gazebo reference="wheel_fr">
+  <mu1>1.0</mu1>
+  <mu2>1.0</mu2>
+</gazebo>
+<gazebo reference="wheel_rl">
+  <mu1>0.000001</mu1>
+  <mu2>0.000001</mu2>
+</gazebo>
+<gazebo reference="wheel_rr">
+  <mu1>0.000001</mu1>
+  <mu2>0.000001</mu2>
+</gazebo>
+
 </robot>
