@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot  xmlns:xacro="http://ros.org/wiki/xacro">
     <xacro:macro name="chassis">
+        <link name="base_footprint"/>
         <link name="chassis_link">
             <visual>
                 <origin xyz="0 0 0.07" rpy="0 0 0"/>
@@ -25,5 +26,10 @@
                   izz="0.01"/>
               </inertial>
         </link>
+
+        <joint name="base_joint" type="fixed">
+            <parent link="base_footprint"/>
+            <child link="chassis_link"/>
+        </joint>
     </xacro:macro>
 </robot>

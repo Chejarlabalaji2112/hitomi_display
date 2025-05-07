@@ -14,7 +14,10 @@ setup(
         (os.path.join('share', package_name, 'launch'), glob('launch/*.py')),
         (os.path.join('share', package_name, 'urdf'), glob('urdf/*.urdf')+ glob('urdf/*.xacro')),
         (os.path.join('share', package_name, 'config'), glob('config/*.yaml')),
-        (os.path.join('share', package_name, 'meshes'), glob('meshes/*.dae')),
+        (os.path.join('share', package_name, 'meshes'), glob('meshes/*.dae')+ glob('meshes/*.stl')),
+        (os.path.join('share', package_name, 'worlds'), glob('worlds/*.sdf')),
+        (os.path.join('share', package_name, 'rviz'), glob('rviz/*.rviz')),
+        
     ],
     install_requires=[
         'setuptools',
@@ -28,7 +31,7 @@ setup(
     entry_points={
         'console_scripts': [
             'hitomi_gui = hitomi.gui:main',
-            'camera_subscriber = hitomi.camera_subscriber:main',
+            
         ],
     },
 )

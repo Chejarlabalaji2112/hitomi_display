@@ -3,61 +3,40 @@ import xacro
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, SetEnvironmentVariable
 from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
-
+from pathlib import Path
 def generate_launch_description():
-    robot_name = "test_bot"
-    package_name = "hitomi"
+    robot_name = "hitomi_quadruped"
+    PACKAGE_NAME = "hitomi"
 
     world_arg = DeclareLaunchArgument(
         'world',
-        default_value='empty.sdf',
+        default_value='maze2.sdf',
         description='Specify the world file for Gazebo (eg., empty.sdf)'
     )
+    pkg_path = get_package_share_directory(PACKAGE_NAME)
+    ign_resource_path = SetEnvironmentVariable(
+        name='GZ_SIM_RESOURCE_PATH',
+        value=[
+            str(Path(pkg_path).parent.resolve()), ":",
+             os.path.join(pkg_path, 'worlds'),
+            ])
 
-    x_arg = DeclareLaunchArgument(
-        'x', default_value='0.0', description='Initial X position'
-    )
-
-    y_arg = DeclareLaunchArgument(
-        'y', default_value='0.0', description='Initial Y position'
-        )
-
-    z_arg = DeclareLaunchArgument(
-        'z', default_value='0.5', description='Initial Z position'
-        )
-
-    roll_arg = DeclareLaunchArgument(
-        'R', default_value='0.0', description='Initial Roll'
-        )
-
-    pitch_arg = DeclareLaunchArgument(
-        'P', default_value='0.0', description='Initial Pitch'
-        )
-
-    yaw_arg = DeclareLaunchArgument(
-        'Y', default_value='0.0', description='Initial Yaw'
-        )   
     
     world_file = LaunchConfiguration('world')
-    x = LaunchConfiguration('x')
-    y = LaunchConfiguration('y')
-    z = LaunchConfiguration('z')
-    roll = LaunchConfiguration('R')
-    pitch = LaunchConfiguration('P')
-    yaw = LaunchConfiguration('Y')
+
 
     robot_model_path = os.path.join(
-        get_package_share_directory(package_name),
+        get_package_share_directory(PACKAGE_NAME),
         'urdf',
-        'body.xacro'
+        'combined.urdf.xacro'
     )
 
     gz_bridge_param_path = os.path.join(
-        get_package_share_directory(package_name),
+        get_package_share_directory(PACKAGE_NAME),
         'config',
         'gz_bridge.yaml')
 
@@ -85,12 +64,7 @@ def generate_launch_description():
         arguments= [
             '-name', robot_name,
             '-string', robot_description,
-            '-x', x,
-            '-y', y,
-            '-z', z,
-            '-R', roll,
-            '-P', pitch,
-            '-Y', yaw,
+            'z','0.2',
             '-allow_renaming', 'false'
         ],
     )
@@ -118,15 +92,11 @@ def generate_launch_description():
     return LaunchDescription(
         [
             world_arg,
+            ign_resource_path,
             gazebo_launch,
-            x_arg,
-            y_arg,
-            z_arg,
-            roll_arg,
-            pitch_arg,
-            yaw_arg,
             spawn_model_gazebo_node,
             robot_state_publisher_node,
-            gz_bridge_node
+            gz_bridge_node,
+            
         ]
     )
