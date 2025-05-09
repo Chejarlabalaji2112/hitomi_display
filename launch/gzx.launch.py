@@ -1,3 +1,4 @@
+#testing
 import os
 import xacro
 from ament_index_python.packages import get_package_share_directory
@@ -64,7 +65,7 @@ def generate_launch_description():
         arguments= [
             '-name', robot_name,
             '-string', robot_description,
-            'z','0.2',
+            '-z','0.5',
             '-allow_renaming', 'false'
         ],
     )

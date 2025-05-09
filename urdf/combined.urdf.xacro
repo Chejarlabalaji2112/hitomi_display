@@ -5,7 +5,7 @@
     <xacro:include filename="$(find hitomi)/urdf/wheels.urdf.xacro"/>
     <xacro:include filename="$(find hitomi)/urdf/lidar.urdf.xacro"/>
     <xacro:include filename="$(find hitomi)/urdf/camera.urdf.xacro"/>
-    <xacro:include filename="$(find hitomi)/urdf/gazebo_plugins.urdf.xacro"/>
+    
 
     <xacro:chassis/>
     <xacro:leg suffix="fl" parent="chassis_link" xyz="0.15 0.09 0.03" rpy="0 0.523 0"/>
@@ -18,4 +18,5 @@
     <xacro:wheel suffix="rr" parent="leg_rr" xyz="-0.08 -0.02 -0.05" />
     <xacro:lidar xyz="0.07 0 0.12" />
     <xacro:camera/>
+    <xacro:include filename="$(find hitomi)/urdf/gazebo_plugins.urdf.xacro"/>
 </robot>
