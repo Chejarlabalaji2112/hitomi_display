@@ -30,6 +30,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'voice_controller = hitomi_display.speech_dev_controller.py:main',
             
         ],
     },
