@@ -13,13 +13,19 @@
 
 ## Description
 
-The `hitomi_display` package is a comprehensive ROS2-based GUI application meticulously crafted for the seamless control and monitoring of the Hitomi robot. This versatile package boasts an array of functionalities, including:
+The `hitomi_display` package is a ROS2 package that provides a GUI for controlling the Hitomi robot. It includes speech recognition, a stopwatch, and a timer. This package is designed to be used with the Hitomi robot simulation in Gazebo.
 
-*   **Speech Recognition:** Empowering users to interact with the robot through voice commands.
-*   **Stopwatch:** Facilitating precise timekeeping for task execution and performance analysis.
-*   **Timer:** Enabling automated task scheduling and execution.
+The package includes the following features:
 
-Designed with the Gazebo simulation environment in mind, `hitomi_display` provides an intuitive and efficient interface for robotics enthusiasts and researchers alike.
+*   **Speech Recognition:** Allows users to control the robot using voice commands.
+*   **Stopwatch:** Provides a stopwatch for timing tasks.
+*   **Timer:** Provides a timer for scheduling tasks.
+
+The package also includes the following files:
+
+*   `launch/gz.launch.py`: Launch file for Gazebo simulation.
+*   `urdf/display.urdf.xacro`: URDF file for the robot display.
+*   `config/gz_bridge.yaml`: Configuration file for the Gazebo bridge.
 
 ## Installation
 
