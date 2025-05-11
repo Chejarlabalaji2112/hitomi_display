@@ -1,8 +1,25 @@
 # hitomi_display
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## Table of Contents
+
+*   [Description](#description)
+*   [Installation](#installation)
+*   [Usage](#usage)
+*   [Configuration](#configuration)
+*   [Contributing](#contributing)
+*   [License](#license)
+
 ## Description
 
-The `hitomi_display` package is a ROS2 package that provides a graphical user interface (GUI) for controlling and monitoring the Hitomi robot. It includes features such as speech recognition, a stopwatch, and a timer. This package is designed to be used with the Hitomi robot simulation in Gazebo.
+The `hitomi_display` package is a comprehensive ROS2-based GUI application meticulously crafted for the seamless control and monitoring of the Hitomi robot. This versatile package boasts an array of functionalities, including:
+
+*   **Speech Recognition:** Empowering users to interact with the robot through voice commands.
+*   **Stopwatch:** Facilitating precise timekeeping for task execution and performance analysis.
+*   **Timer:** Enabling automated task scheduling and execution.
+
+Designed with the Gazebo simulation environment in mind, `hitomi_display` provides an intuitive and efficient interface for robotics enthusiasts and researchers alike.
 
 ## Installation
 
