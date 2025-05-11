@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<robot name="hitomi" xmlns:xacro="https://ros.org/wiki/xacro">
-    <xacro:include filename="$(find hitomi)/urdf/chassis.urdf.xacro"/>
-    <xacro:include filename="$(find hitomi)/urdf/legs.urdf.xacro"/>
-    <xacro:include filename="$(find hitomi)/urdf/wheels.urdf.xacro"/>
-    <xacro:include filename="$(find hitomi)/urdf/lidar.urdf.xacro"/>
-    <xacro:include filename="$(find hitomi)/urdf/camera.urdf.xacro"/>
+<robot name="hitomi_display" xmlns:xacro="https://ros.org/wiki/xacro">
+    <xacro:include filename="$(find hitomi_display)/urdf/chassis.urdf.xacro"/>
+    <xacro:include filename="$(find hitomi_display)/urdf/legs.urdf.xacro"/>
+    <xacro:include filename="$(find hitomi_display)/urdf/wheels.urdf.xacro"/>
+    <xacro:include filename="$(find hitomi_display)/urdf/display.urdf.xacro"/>
+    <xacro:include filename="$(find hitomi_display)/urdf/camera.urdf.xacro"/>
     
 
     <xacro:chassis/>
@@ -16,7 +16,7 @@
     <xacro:wheel suffix="fr" parent="leg_fr" xyz="0.08 -0.02 -0.05"/>
     <xacro:wheel suffix="rl" parent="leg_rl" xyz="-0.08 0.02 -0.05" />
     <xacro:wheel suffix="rr" parent="leg_rr" xyz="-0.08 -0.02 -0.05" />
-    <xacro:lidar xyz="0.07 0 0.12" />
+    <xacro:display xyz="0.07 0 0.12" />
     <xacro:camera/>
-    <xacro:include filename="$(find hitomi)/urdf/gazebo_plugins.urdf.xacro"/>
+    <xacro:include filename="$(find hitomi_display)/urdf/gazebo_plugins.urdf.xacro"/>
 </robot>

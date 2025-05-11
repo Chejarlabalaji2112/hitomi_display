@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 import os
 from glob import glob
-package_name = 'hitomi'
+package_name = 'hitomi_display'
 
 setup(
     name=package_name,
@@ -25,12 +25,11 @@ setup(
     zip_safe=True,
     maintainer='badri',
     maintainer_email='badri@todo.todo',
-    description='A simple timer and stopwatch GUI application.',
+    description='A robot',
     license='MIT',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'hitomi_gui = hitomi.gui:main',
             
         ],
     },

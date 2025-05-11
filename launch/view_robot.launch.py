@@ -3,7 +3,7 @@ from launch_ros.actions import Node
 from launch.substitutions import Command
 import xacro
 def generate_launch_description():
-    robot_description_content = xacro.process_file('/home/badri/ros2_ws/src/hitomi/urdf/combined.urdf.xacro').toxml() #Command(['xacro ', '/home/badri/ros2_ws/src/hitomi/urdf/combined.urdf.xacro'])
+    robot_description_content = xacro.process_file('/home/badri/ros2_ws/src/hitomi_display/urdf/combined.urdf.xacro').toxml() #Command(['xacro ', '/home/badri/ros2_ws/src/hitomi/urdf/combined.urdf.xacro'])
     return LaunchDescription([
         Node(
             package='robot_state_publisher',

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+<xacro:macro name="display" params="xyz">
+    <link name="display_link">
+        <visual>
+            <origin xyz="${xyz}" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.01 0.08 0.03" />
+              </geometry>
+              <material name="black">
+                <color rgba="0 0 0 1" />
+              </material>
+        </visual>
+        <collision>
+            <origin xyz="${xyz}" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.01 0.08 0.03" />
+              </geometry>
+        </collision>
+    </link>
+
+    <joint name="display_joint" type="fixed">
+        <parent link="chassis_link" />
+        <child link="display_link" />
+      </joint>
+</xacro:macro>
+</robot>

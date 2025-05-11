@@ -6,7 +6,7 @@ from launch_ros.substitutions import FindPackageShare
 import os
 
 def generate_launch_description():
-    pkg_name = 'hitomi'
+    pkg_name = 'hitomi_display'
     robot_urdf = os.path.join(FindPackageShare(pkg_name).find(pkg_name), 'urdf', 'total_body.urdf')
     
     return LaunchDescription([

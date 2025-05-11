@@ -1,4 +1,4 @@
-#test2
+#we can try this node for slam with just cam
 import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
@@ -8,7 +8,7 @@ from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from pathlib import Path
 from launch_ros.actions import Node
 
-PACKAGE_NAME = "hitomi"
+PACKAGE_NAME = "hitomi_display"
 
 def generate_launch_description():
 

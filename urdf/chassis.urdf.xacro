@@ -6,7 +6,7 @@
             <visual>
                 <origin xyz="0 0 0.07" rpy="0 0 0"/>
                 <geometry>
-                    <mesh filename="package://hitomi/meshes/body.dae"/>
+                    <mesh filename="package://hitomi_display/meshes/body.dae"/>
                 </geometry>
                 <material name="true_turquoise">
                     <color rgba="0.251 0.878 0.816 1.0"/>
@@ -15,7 +15,7 @@
             <collision>
                 <origin xyz="0 0 0.07" rpy="0 0 0"/>
                 <geometry>
-                    <mesh filename="package://hitomi/meshes/body.stl"/>
+                    <mesh filename="package://hitomi_display/meshes/body.stl"/>
                 </geometry>
             </collision>
             <inertial>

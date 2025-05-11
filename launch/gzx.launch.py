@@ -11,7 +11,7 @@ from launch_ros.actions import Node
 from pathlib import Path
 def generate_launch_description():
     robot_name = "hitomi_quadruped"
-    PACKAGE_NAME = "hitomi"
+    PACKAGE_NAME = "hitomi_display"
 
     world_arg = DeclareLaunchArgument(
         'world',
